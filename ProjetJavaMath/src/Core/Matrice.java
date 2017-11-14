@@ -20,6 +20,7 @@ public class Matrice {
 		return nbVariables;
 	}
 
+
 	public int getNbContraintes() {
 		return nbContraintes;
 	}
