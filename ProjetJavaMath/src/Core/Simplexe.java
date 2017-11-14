@@ -20,6 +20,6 @@ public class Simplexe {
 	{
 		return "VB " + vb + "\nVHB: " + vhb + "\nMatrice: " + mat;
 	}
-	///commenjlv<klhjqbmknjwbetm
+	///commenjlv<klhjqbmknjjhbjvwbetm
 	
 }
