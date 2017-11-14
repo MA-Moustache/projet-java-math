@@ -15,4 +15,10 @@ public class Simplexe {
 	{
 		return mat;
 	}
+
+	public String toString()
+	{
+		return "VB " + vb + "\nVHB: " + vhb + "\nMatrice: " + mat;
+	}
+	
 }
