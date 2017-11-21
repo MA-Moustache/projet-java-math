@@ -132,15 +132,26 @@ public class Matrice{
 		
 	}
 	public Matrice produitMatrice(Matrice m)throws ObjectNullException{
+		//nombre de colonnes de la premiere egale au nombre de lignes de la seconde
 		if(m != null){
-			Matrice matriceT=this.transposition();
-			if(matriceT.matrice.length==m.matrice.length){
-				for(int x=0;x<matriceT.matrice.length;x++){
-					if(matriceT.matrice[x].length != m.matrice[x].length){
-						return null;
-					}
-					//faire reponse 
+			if(this.transposition().matrice.length == m.matrice.length){
+				int taille=m.matrice.length;
+				Matrice rep=null;
+				try {
+					rep=new Matrice(this.matrice.length,m.transposition().matrice.length);
+				} 
+				catch (NumberUnderLimitException e) {
+					e.printStackTrace();
 				}
+				for(int ligne=0;ligne<rep.matrice.length;ligne++){
+					for(int colonne=0;colonne<rep.matrice[ligne].length;colonne++){
+						for(int z=0;z<taille;z++){
+							rep.matrice[ligne][colonne]+=this.matrice[ligne][taille]+m.matrice[taille][colonne];
+						}
+						
+					}
+				}
+				return rep;
 			}
 			else{
 				return null;
