@@ -139,7 +139,7 @@ public class Matrice{
 					if(matriceT.matrice[x].length != m.matrice[x].length){
 						return null;
 					}
-					//faire reponse
+					//faire reponse 
 				}
 			}
 			else{
