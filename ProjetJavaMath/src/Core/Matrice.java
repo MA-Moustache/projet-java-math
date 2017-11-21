@@ -9,6 +9,7 @@ public class Matrice{
 
 
 	private double matrice[][];
+	
 	public Matrice(int nbContrainte, int nbVariable)throws NumberUnderLimitException{
 		if(nbContrainte>0 && nbVariable>0){
 			this.matrice=new double[nbContrainte][nbVariable];
