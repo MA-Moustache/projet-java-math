@@ -165,4 +165,7 @@ public class Matrice{
 	public int getSizeLigne(){
 		return this.matrice.length;
 	}
+	public int getSizeColonne(){
+		return this.matrice[0].length;
+	}
 }
