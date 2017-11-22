@@ -6,4 +6,7 @@ public class NumberUnderLimitException extends Exception {
 	public NumberUnderLimitException(){
 		super("Dimensions can be null or negative");
 	}
+	public NumberUnderLimitException(int x){
+		super("Dimensions can be negative");
+	}
 }

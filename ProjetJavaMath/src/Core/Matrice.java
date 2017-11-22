@@ -19,16 +19,16 @@ public class Matrice{
 		}
 	}
 	public void setVariable(int x, int y, double contenu)throws NumberUnderLimitException{
-		if(x>0 && x<=this.matrice.length){
-			if(y>0 && y<=this.matrice[x].length){
+		if(x>=0 && x<=this.matrice.length){
+			if(y>=0 && y<=this.matrice[x].length){
 				this.matrice[x][y]=contenu;
 			}
 			else{
-				throw new NumberUnderLimitException();
+				throw new NumberUnderLimitException(y);
 			}
 		}
 		else{
-			throw new NumberUnderLimitException();
+			throw new NumberUnderLimitException(x);
 		}
 	}
 	public int getNbVariables() {
@@ -162,5 +162,7 @@ public class Matrice{
 			throw new ObjectNullException();
 		}
 	}
-	
+	public int getSizeLigne(){
+		return this.matrice.length;
+	}
 }
