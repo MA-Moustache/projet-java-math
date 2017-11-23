@@ -55,7 +55,7 @@ public class Matrice{
 		String str="";
 		for(int x=0;x<matrice.length;x++){
 			for(int y=0;y<matrice[x].length;y++){
-				str+=matrice[x][y]+" ";
+				str+=matrice[x][y]+"| ";
 			}
 			str+="\n";
 		}
