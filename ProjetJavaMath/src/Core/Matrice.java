@@ -175,4 +175,7 @@ public class Matrice{
 	public int getSizeColonne(){
 		return this.matrice[0].length;
 	}
+	public Matrice clone(){
+		//add le code
+	}
 }
