@@ -2,6 +2,7 @@ package Core;
 
 import java.io.Serializable;
 
+import Erreur.NegatifNumberException;
 import Erreur.NumberUnderLimitException;
 import Erreur.ObjectNullException;
 
@@ -18,17 +19,23 @@ public class Matrice{
 			throw new NumberUnderLimitException();
 		}
 	}
-	public void setVariable(int x, int y, double contenu)throws NumberUnderLimitException{
+	public void setVariable(int x, int y, double contenu)throws NegatifNumberException, NumberUnderLimitException{
 		if(x>=0 && x<=this.matrice.length){
 			if(y>=0 && y<=this.matrice[x].length){
 				this.matrice[x][y]=contenu;
 			}
+			else if(y<0){
+				throw new NegatifNumberException();
+			}
 			else{
-				throw new NumberUnderLimitException(y);
+				throw new NumberUnderLimitException();
 			}
 		}
+		else if(x<0){
+			throw new NegatifNumberException();
+		}
 		else{
-			throw new NumberUnderLimitException(x);
+			throw new NumberUnderLimitException();
 		}
 	}
 	public int getNbVariables() {

@@ -2,6 +2,7 @@ package Core;
 
 import java.io.Serializable;
 
+import Erreur.NegatifNumberException;
 import Erreur.NumberUnderLimitException;
 
 public class Simplexe implements Serializable{
@@ -25,6 +26,10 @@ public class Simplexe implements Serializable{
 				this.matrice.setVariable(x, nbVariable+x, 1);
 			} 
 			catch (NumberUnderLimitException e) {
+				e.printStackTrace();
+			} 
+			catch (NegatifNumberException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
