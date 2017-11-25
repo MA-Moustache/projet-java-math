@@ -6,11 +6,14 @@ import Erreur.NegatifNumberException;
 import Erreur.NumberUnderLimitException;
 import Erreur.ObjectNullException;
 
-public class Main {
+public class Main
+{
 
-	public static void main(String[] args) throws NumberUnderLimitException, NegatifNumberException, ObjectNullException {
+	public static void main(String[] args)
+	{
 		Matrice m=null;
-		try{
+		try
+		{
 			m=new Matrice(2,2);
 			m.setVariable(0, 0, 2.);
 			m.setVariable(0, 1, 1.);
@@ -73,7 +76,15 @@ public class Main {
 			System.out.println("Matrice m4\n"+m4);
 			System.out.println("Modification de m3 par m3=m3+m4\n"+m3);
 		}
-		System.out.println("Transpotision de m\n"+m.transposition());
+		
+		try {
+			System.out.println("Transpotision de m\n"+m.transposition());
+		} catch (ObjectNullException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+
 		Matrice identite=null;
 		try{
 			identite=new Matrice(2,2);
@@ -81,7 +92,6 @@ public class Main {
 			identite.setVariable(0, 1, 0.);
 			identite.setVariable(1, 0, 0.);
 			identite.setVariable(1, 1, 1.);
-			m2.produitMatrice(identite);
 			//erreur dans la multiplication
 		}
 		catch(NegatifNumberException e){
@@ -90,14 +100,107 @@ public class Main {
 		catch(NumberUnderLimitException e){
 			System.err.println(e.getMessage());
 		}
-		catch(ObjectNullException e){
+		finally{
+			System.out.println("Matrice identité\n"+identite);
+		}	
+		
+		Matrice mEtIdent = null;
+
+		try {
+			mEtIdent = m.produitMatrice(identite);
+		} catch (ObjectNullException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NegatifNumberException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NumberUnderLimitException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		finally
+		{
+			System.out.println("Matrice m multipliée par la matrice identité\n" + mEtIdent);
+		}
+		
+		Matrice mike = null;;
+		try
+		{
+			mike = new Matrice(2, 3);
+			mike.setVariable(0, 0, 1);
+			mike.setVariable(0, 1, 3);
+			mike.setVariable(0, 2, 2);
+			mike.setVariable(1, 0, 1);
+			mike.setVariable(1, 1, 0);
+			mike.setVariable(1, 2, 2);
+		}
+		catch(NegatifNumberException e){
+			System.err.println(e.getMessage());
+		}
+		catch(NumberUnderLimitException e){
 			System.err.println(e.getMessage());
 		}
 		finally{
-			System.out.println("Matrice identité\n"+identite);
-			System.out.println("Matrice m3 multiplié par la matrice identité\n"+m);
-		}	
-		//la classe matrice fonctionne jusqu'à la méthode transposition(). La suite n'a pas été tester
+			System.out.println("Matrice mike\n"+mike);
+		}
+		
+		Matrice mike2 = null;
+		try
+		{
+			mike2 = new Matrice(3, 2);
+			mike2.setVariable(0, 0, 1);
+			mike2.setVariable(0, 1, 4);
+			mike2.setVariable(1, 0, 2);
+			mike2.setVariable(1, 1, 0);
+			mike2.setVariable(2, 0, 1);
+			mike2.setVariable(2, 1, 3);
+		}
+		catch(NegatifNumberException e){
+			System.err.println(e.getMessage());
+		}
+		catch(NumberUnderLimitException e){
+			System.err.println(e.getMessage());
+		}
+		finally{
+			System.out.println("Matrice mike2\n"+mike2);
+		}
+		
+		
+		Matrice mikeMult = null;
+		try 
+		{
+			mikeMult = mike.produitMatrice(mike2);
+		} catch (ObjectNullException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NegatifNumberException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberUnderLimitException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			System.out.println("Matrice Mikes multipliées\n" + mikeMult);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
