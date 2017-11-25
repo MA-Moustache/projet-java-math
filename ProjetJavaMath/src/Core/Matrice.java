@@ -176,6 +176,19 @@ public class Matrice{
 		return this.matrice[0].length;
 	}
 	public Matrice clone(){
-		//add le code
+		Matrice nouvelleMatrice =null;
+		
+		try {
+			nouvelleMatrice =new Matrice(this.matrice.length,this.matrice[0].length);
+		}
+		catch (NumberUnderLimitException e) {
+			e.printStackTrace();
+		}
+		for(int x=0;x<this.matrice.length;x++){
+			for(int y=0;y<this.matrice[x].length;y++){
+				nouvelleMatrice.matrice[x][y]=this.matrice[x][y];
+			}
+		}
+		return nouvelleMatrice;
 	}
 }
