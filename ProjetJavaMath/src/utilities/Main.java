@@ -1,16 +1,17 @@
 package utilities;
 
+import java.util.Scanner;
+
 import Core.Matrice;
-import Core.Simplexe;
 import Erreur.NegatifNumberException;
 import Erreur.NumberUnderLimitException;
-import Erreur.ObjectNullException;
 
 public class Main
 {
 
 	public static void main(String[] args)
 	{
+		/*
 		Matrice m=null;
 		try
 		{
@@ -50,8 +51,8 @@ public class Main
 		finally{
 			System.out.println("Matrice m3\n"+m3);
 		}
-		/*Pour le equals les test on été fait si la matrice est cloner et si on change les dimension mais pas les valeurs également. Donc une matrice est éagale à une autre si et seulement si elle 
-		ont les mêmes dimensions et les mêmes valeurs au même position.*/
+		//Pour le equals les test on été fait si la matrice est cloner et si on change les dimension mais pas les valeurs également. Donc une matrice est éagale à une autre si et seulement si elle 
+		//ont les mêmes dimensions et les mêmes valeurs au même position.
 		System.out.println("Matrice m equals Matrice m3 is "+m.equals(m3));
 		Matrice m4=null;
 		try{
@@ -61,7 +62,7 @@ public class Main
 			m4.setVariable(1, 0, -1.);
 			m4.setVariable(1, 1, -1.);
 			m3=m3.sommeMatrice(m4);
-			/*la somme avec une matrice null donne la matrice, la somme avec des valeur postives ou négative modifie la valeur qui se trouve à la même postion dans la matrice résultat.*/
+			//la somme avec une matrice null donne la matrice, la somme avec des valeur postives ou négative modifie la valeur qui se trouve à la même postion dans la matrice résultat.
 		}
 		catch(NegatifNumberException e){
 			System.err.println(e.getMessage());
@@ -188,12 +189,60 @@ public class Main
 			System.out.println("Matrice Mikes multipliées\n" + mikeMult);
 		}
 		
+		*/
 		
+		// Étape 1: Encoder les données
 		
+		Matrice m = null;
+		Scanner scan = new Scanner(System.in);
 		
+		System.out.println("Nombre de contraintes: ");
+		int nbContraintes = scan.nextInt();
 		
+		System.out.println("Nombre de variables: ");
+		int nbVariables = scan.nextInt();
 		
+		try {
+			m = new Matrice(nbContraintes + 1, (nbContraintes > nbVariables)? nbContraintes + nbVariables + 1 : nbVariables*2 + 1);
+		} catch (NumberUnderLimitException e) {
+			e.printStackTrace();
+		}
 		
+		int valeur;
+		for(int i = 1; i <= nbContraintes; i++)
+		{
+			System.out.println("Contrainte n°" + i);
+			for(int y = 1; y <= nbVariables; y++)
+			{
+				System.out.println("Valeur de la variable n°" + y + ": ");
+				valeur = scan.nextInt();
+				try {
+					m.setVariable(i-1, y-1, valeur);
+				} catch (NegatifNumberException e) {
+					e.printStackTrace();
+				} catch (NumberUnderLimitException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		System.out.println(m.toString());
+
+		// On remplit la partie identité
+		for(int i = nbVariables; i < m.getSizeColonne() - 1; i++)
+		{
+			try {
+				m.setVariable(i - nbVariables, i, 1);
+			} catch (NegatifNumberException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NumberUnderLimitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println(m.toString());
 		
 		
 		
