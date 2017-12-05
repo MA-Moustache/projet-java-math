@@ -207,34 +207,34 @@ public class Matrice{
 		
 		if(m != null)
 		{
-			if(this.getSizeColonne() == m.getSizeLigne())
+			if(this.getNumberColonne() == m.getNumberLigne())
 			{
 				
 				Matrice rep = null;
 				
 				try 
 				{
-					rep = new Matrice(this.getSizeLigne(), m.getSizeColonne());
+					rep = new Matrice(this.getNumberLigne(), m.getNumberColonne());
 				}
 				catch (NumberUnderLimitException e)
 				{
 					e.printStackTrace();
 				}
 				
-				for(int ligne = 0; ligne < rep.getSizeLigne(); ligne++)
+				for(int ligne = 0; ligne < rep.getNumberLigne(); ligne++)
 				{
-					for(int colonne = 0; colonne < rep.getSizeColonne(); colonne++)
+					for(int colonne = 0; colonne < rep.getNumberColonne(); colonne++)
 					{
 						rep.setVariable(ligne, colonne, 0);
 					}
 				}
 				
-				for(int i = 0; i < rep.getSizeLigne(); i++)
+				for(int i = 0; i < rep.getNumberLigne(); i++)
 				{
-					for(int y = 0; y < rep.getSizeColonne(); y++)
+					for(int y = 0; y < rep.getNumberColonne(); y++)
 					{
 						// A partir d'ici on parcours chaque case de notre matrice REP
-						for(int z = 0; z < this.getSizeColonne(); z++)
+						for(int z = 0; z < this.getNumberColonne(); z++)
 						{
 							rep.matrice[i][y] += this.matrice[i][z] * m.matrice[z][y];
 						}
@@ -253,11 +253,11 @@ public class Matrice{
 		}
 	}
 	
-	public int getSizeLigne(){
+	public int getNumberLigne(){
 		return this.matrice.length;
 	}
 	
-	public int getSizeColonne(){
+	public int getNumberColonne(){
 		return this.matrice[0].length;
 	}
 	

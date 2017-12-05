@@ -5,6 +5,7 @@ import java.util.Scanner;
 import Core.Matrice;
 import Erreur.NegatifNumberException;
 import Erreur.NumberUnderLimitException;
+import Erreur.ObjectNullException;
 
 public class Main
 {
@@ -188,8 +189,8 @@ public class Main
 		{
 			System.out.println("Matrice Mikes multipliées\n" + mikeMult);
 		}
-		
 		*/
+		
 		
 		// Étape 1: Encoder les données
 		
@@ -208,14 +209,14 @@ public class Main
 			e.printStackTrace();
 		}
 		
-		int valeur;
+		double valeur;
 		for(int i = 1; i <= nbContraintes; i++)
 		{
 			System.out.println("Contrainte n°" + i);
 			for(int y = 1; y <= nbVariables; y++)
 			{
 				System.out.println("Valeur de la variable n°" + y + ": ");
-				valeur = scan.nextInt();
+				valeur = scan.nextDouble();
 				try {
 					m.setVariable(i-1, y-1, valeur);
 				} catch (NegatifNumberException e) {
@@ -225,11 +226,25 @@ public class Main
 				}
 			}
 		}
+		//remplissafe des therme indépendants
+		for(int i=0;i<m.getNumberLigne()-1;i++){
+			System.out.println("Therme indépendant n°"+i+": ");
+			valeur=scan.nextDouble();
+			try {
+				m.setVariable(i, m.getNumberColonne()-1, valeur);
+			} catch (NegatifNumberException e){
+
+				e.printStackTrace();
+			} catch (NumberUnderLimitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		System.out.println(m.toString());
 
 		// On remplit la partie identité
-		for(int i = nbVariables; i < m.getSizeColonne() - 1; i++)
+		for(int i = nbVariables; i < m.getNumberColonne() - 1; i++)
 		{
 			try {
 				m.setVariable(i - nbVariables, i, 1);

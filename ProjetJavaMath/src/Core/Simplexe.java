@@ -19,20 +19,9 @@ public class Simplexe implements Serializable{
 		catch (NumberUnderLimitException e) {
 			e.printStackTrace();
 		}
-		//remplissage de la matrice simplexe, rentrer matrice indentité
+	
 
-		for(int x=0;x<nbContrainte;x++){
-			try {
-				this.matrice.setVariable(x, nbVariable+x, 1);
-			} 
-			catch (NumberUnderLimitException e) {
-				e.printStackTrace();
-			} 
-			catch (NegatifNumberException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		
 	}
 	public String toString(){
 		return this.matrice.toString();
