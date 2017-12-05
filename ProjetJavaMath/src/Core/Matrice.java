@@ -5,6 +5,7 @@ import java.io.Serializable;
 import Erreur.NegatifNumberException;
 import Erreur.NumberUnderLimitException;
 import Erreur.ObjectNullException;
+import java.text.*;
 
 public class Matrice{
 
@@ -57,24 +58,7 @@ public class Matrice{
 		}
 	}
 	
-	/**
-	 * Retourne le nombre de variables (et donc de lignes) de la matrice
-	 * 
-	 * @return Le nombre de variables
-	 */
-	public int getNbVariables() {
-		return this.matrice[0].length;
-	}
-	
-	/**
-	 * Retourne le nombre de contraintes (et donc de colonnes) de la matrice
-	 * 
-	 * @return Le nombre de contraintes
-	 */
-	public int getNbContraintes() {
-		return this.matrice.length;
-	}
-	
+
 	/**
 	 * Test l'égalité entre deux matrices en se basant sur leur contenu
 	 * 
@@ -105,7 +89,7 @@ public class Matrice{
 		String str="";
 		for(int x=0;x<matrice.length;x++){
 			for(int y=0;y<matrice[x].length;y++){
-				str+=matrice[x][y]+"| ";
+				str+=matrice[x][y]+"|";
 			}
 			str+="\n";
 		}
@@ -263,5 +247,15 @@ public class Matrice{
 	
 	public Matrice clone(){
 		return null; // Pour eviter erreurs 
+	}
+
+	public double getVariable(int ligne,int colonne)throws NegatifNumberException,NumberUnderLimitException{
+		if(ligne <0 || colonne<0){
+			throw new NegatifNumberException();
+		}
+		if(ligne >=this.getNumberLigne() || colonne >= this.getNumberColonne()){
+			throw new NumberUnderLimitException();
+		}
+		return this.matrice[ligne][colonne];
 	}
 }

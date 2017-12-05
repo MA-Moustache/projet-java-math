@@ -3,6 +3,7 @@ package utilities;
 import java.util.Scanner;
 
 import Core.Matrice;
+import Core.Simplexe;
 import Erreur.NegatifNumberException;
 import Erreur.NumberUnderLimitException;
 import Erreur.ObjectNullException;
@@ -194,7 +195,7 @@ public class Main
 		
 		// Étape 1: Encoder les données
 		
-		Matrice m = null;
+		Simplexe m = null;
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Nombre de contraintes: ");
@@ -204,50 +205,34 @@ public class Main
 		int nbVariables = scan.nextInt();
 		
 		try {
-			m = new Matrice(nbContraintes + 1, (nbContraintes > nbVariables)? nbContraintes + nbVariables + 1 : nbVariables*2 + 1);
+			m=new Simplexe(nbContraintes,nbVariables);
 		} catch (NumberUnderLimitException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		double valeur;
-		for(int i = 1; i <= nbContraintes; i++)
-		{
-			System.out.println("Contrainte n°" + i);
-			for(int y = 1; y <= nbVariables; y++)
-			{
-				System.out.println("Valeur de la variable n°" + y + ": ");
-				valeur = scan.nextDouble();
+		System.out.println(m.toString());
+		for(int i=0;i<nbContraintes;i++){
+			int j=i+1;
+			System.out.println("Contrainte n°"+j);
+			for(int v=0;v<nbVariables;v++){
+				int w=v+1;
+				System.out.println("Valeur de la variable n°"+w);
+				valeur=scan.nextDouble();
 				try {
-					m.setVariable(i-1, y-1, valeur);
+					m.setVariable(i, v, valeur);
 				} catch (NegatifNumberException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (NumberUnderLimitException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		}
-		//remplissafe des therme indépendants
-		for(int i=0;i<m.getNumberLigne()-1;i++){
-			System.out.println("Therme indépendant n°"+i+": ");
+			System.out.println("Therme independant: ");
 			valeur=scan.nextDouble();
 			try {
-				m.setVariable(i, m.getNumberColonne()-1, valeur);
-			} catch (NegatifNumberException e){
-
-				e.printStackTrace();
-			} catch (NumberUnderLimitException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		System.out.println(m.toString());
-
-		// On remplit la partie identité
-		for(int i = nbVariables; i < m.getNumberColonne() - 1; i++)
-		{
-			try {
-				m.setVariable(i - nbVariables, i, 1);
+				m.setVariable(i, nbContraintes+nbVariables, valeur);
 			} catch (NegatifNumberException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -256,14 +241,25 @@ public class Main
 				e.printStackTrace();
 			}
 		}
-		
 		System.out.println(m.toString());
-		
-		
-		
-		
-		
-		
+		//fonction recherche
+		System.out.println("Fonction objective");
+		for(int i=0;i<nbVariables;i++){
+			System.out.println("Valeur de la variable");
+			valeur=scan.nextDouble();
+			try {
+				m.setVariable(nbContraintes, i, valeur);
+			} catch (NegatifNumberException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NumberUnderLimitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println(m.toString());
+		m.calcul();
+		System.out.println(m.toString());
 		
 	}
 
