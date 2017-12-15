@@ -134,7 +134,7 @@ public class Simplexe implements Serializable{
 			
 			}
 		}
-		this.calcul();
+	//	this.calcul();
 	}
 
 	public void setVariable(int ligne,int colonne,double valeur)throws NegatifNumberException,NumberUnderLimitException{
@@ -150,10 +150,13 @@ public class Simplexe implements Serializable{
 	
 	public int verifierLigne()
 	{
+		int col = -1;
+		double colVal = -1;
 		for(int i = 0; i <= this.matrice.getNumberColonne() - 2; i++){
 			try {
-				if(this.matrice.getVariable(this.matrice.getNumberLigne()-1, i) > 0){
-					return i;
+				if(this.matrice.getVariable(this.matrice.getNumberLigne()-1, i) > 0 && this.matrice.getVariable(this.matrice.getNumberLigne() - 1, i) > colVal){
+					colVal = this.matrice.getVariable(this.matrice.getNumberLigne()-1, i);
+					col = i;
 				}
 			} catch (NegatifNumberException e) {
 				e.printStackTrace();
@@ -161,7 +164,7 @@ public class Simplexe implements Serializable{
 				e.printStackTrace();
 			}
 		}
-		return -1;
+		return col;
 		
 	}
 }
