@@ -258,9 +258,8 @@ public class Main
 			}
 		}
 		System.out.println(m.toString());
-		m.calcul();
-		System.out.println(m.toString());
-		
+		m.calcul();		
+		System.out.println(m.toString());		
 	}
 
 }

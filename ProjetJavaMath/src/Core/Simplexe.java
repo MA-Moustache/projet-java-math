@@ -39,37 +39,28 @@ public class Simplexe implements Serializable{
 		 * verif il y a au moins un nombre positif dans la derniere ligne or derniere colonne
 		 * si faux on sort de la methode
 		 */
-		boolean verifPositif=false;
+		int colonne = verifierLigne();
 		
-		for(int i=0;i<this.matrice.getNumberColonne()-1;i++){
-			try {
-				if(this.matrice.getVariable(this.matrice.getNumberLigne()-1, i)>0){
-					verifPositif=true;
-				}
-			} catch (NegatifNumberException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NumberUnderLimitException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if(verifPositif == false){
+		if(colonne < 0)
+		{
+			System.out.println("Plus d'ittérations possible");
 			return;
 		}
 		
-		
+		System.out.println("Colonne du pivot: " + colonne);
 		/*
 		 * recherche de la colonne du pivot
 		 * celle ci est le plus grand nombre sur la derniere ligne sauf derniere colonne
 		 */
-		double colonnePivot=-1;
-		int cooColonnePivot = 0;
-		for(int i=0;i<this.matrice.getNumberColonne()-1;i++){
+		int ligne = 0;
+		double valLigne = Double.MAX_VALUE;
+		
+		for(int i = 0; i <= this.matrice.getNumberLigne() - 2; i++){
 			try {
-				if(colonnePivot<this.matrice.getVariable(this.matrice.getNumberLigne()-1, i)){
-					colonnePivot=this.matrice.getVariable(this.matrice.getNumberLigne()-1, i);
-					cooColonnePivot=i;
+				if(this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne) < valLigne){
+					valLigne = this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne);
+					System.out.println("Je passe dans la condition, et ValLigne = " + valLigne);
+					ligne = i;
 				}
 			} catch (NegatifNumberException e) {
 				// TODO Auto-generated catch block
@@ -79,37 +70,27 @@ public class Simplexe implements Serializable{
 				e.printStackTrace();
 			}
 		}
-		/*
-		 * recherche de la ligne du pivot
-		 * divise le therme independant par la colonne du pivot on prend le plus petit quotient
-		 */
-		double testPivot[]=new double[this.matrice.getNumberLigne()-1];
-		for(int i=0;i<this.matrice.getNumberLigne()-1;i++){
-			try {
-				testPivot[i]=this.matrice.getVariable(i, this.matrice.getNumberColonne()-1)/this.matrice.getVariable(i, cooColonnePivot);
-			} catch (NegatifNumberException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NumberUnderLimitException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		int cooLignePivot=0;
-		double pivot=testPivot[0];
-		
-		for(int i=0;i<testPivot.length;i++){
-			if(testPivot[i]<pivot){
-				cooLignePivot=i;
-				pivot=testPivot[i];
-			}
-		}
+		System.out.println("Ligne du pivot: " + ligne);
 		/*
 		 * rendre la ligne du pivot unitaire
 		 */
-		for(int i=0;i<this.matrice.getNumberColonne();i++){
+		double pivot=0;
+		try {
+			pivot = this.matrice.getVariable(ligne, colonne);
+		} catch (NegatifNumberException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NumberUnderLimitException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.println(pivot);
+		for(int i=0;i <= this.matrice.getNumberColonne()-1;i++){
 			try {
-				this.matrice.setVariable(cooLignePivot, i, this.matrice.getVariable(cooLignePivot, i)/pivot);
+				System.out.println("Ligne: " + ligne + " Colonne: " + i);
+				
+				this.matrice.setVariable(ligne, i, this.matrice.getVariable(ligne, i) / pivot);
 			} catch (NegatifNumberException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -118,8 +99,42 @@ public class Simplexe implements Serializable{
 				e.printStackTrace();
 			}
 		}
-		
-		
+		System.out.println("Avant de faire apparaitre les zéro: \n" + this.matrice.toString());
+		// A partir d'ici, il faut siplement faire apparaitre des 0 dans les autres lignes du pivot
+		pivot /= pivot;
+		for(int i = 0; i <= this.matrice.getNumberLigne() - 1; i++)
+		{
+			if(i != ligne)
+			{
+				double nb = 0;
+				try {
+					nb = this.matrice.getVariable(i, colonne)/pivot;
+				} catch (NegatifNumberException e) {
+					e.printStackTrace();
+				} catch (NumberUnderLimitException e) {
+					e.printStackTrace();
+				}
+				
+				for(int y = 0; y <= this.matrice.getNumberColonne() - 1; y++)
+				{
+					try {
+						this.matrice.setVariable(i, y, this.matrice.getVariable(i, y) - this.matrice.getVariable(ligne, y)*nb);
+					} catch (NegatifNumberException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NumberUnderLimitException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				
+			
+			
+			
+			}
+		}
+		this.calcul();
 	}
 
 	public void setVariable(int ligne,int colonne,double valeur)throws NegatifNumberException,NumberUnderLimitException{
@@ -130,5 +145,23 @@ public class Simplexe implements Serializable{
 			throw new NumberUnderLimitException();
 		}
 		this.matrice.setVariable(ligne, colonne, valeur);
+	}
+	
+	
+	public int verifierLigne()
+	{
+		for(int i = 0; i <= this.matrice.getNumberColonne() - 2; i++){
+			try {
+				if(this.matrice.getVariable(this.matrice.getNumberLigne()-1, i) > 0){
+					return i;
+				}
+			} catch (NegatifNumberException e) {
+				e.printStackTrace();
+			} catch (NumberUnderLimitException e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
+		
 	}
 }
