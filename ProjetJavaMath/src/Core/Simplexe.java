@@ -43,7 +43,7 @@ public class Simplexe implements Serializable{
 		
 		if(colonne < 0)
 		{
-			System.out.println("Plus d'ittérations possible");
+			System.out.println("Plus d'ittÃ©rations possible");
 			return;
 		}
 		
@@ -99,7 +99,7 @@ public class Simplexe implements Serializable{
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Avant de faire apparaitre les zéro: \n" + this.matrice.toString());
+		System.out.println("Avant de faire apparaitre les zÃ©ro: \n" + this.matrice.toString());
 		// A partir d'ici, il faut siplement faire apparaitre des 0 dans les autres lignes du pivot
 		pivot /= pivot;
 		for(int i = 0; i <= this.matrice.getNumberLigne() - 1; i++)
@@ -134,7 +134,7 @@ public class Simplexe implements Serializable{
 			
 			}
 		}
-	//	this.calcul();
+		this.calcul();
 	}
 
 	public void setVariable(int ligne,int colonne,double valeur)throws NegatifNumberException,NumberUnderLimitException{
