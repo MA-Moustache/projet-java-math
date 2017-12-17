@@ -53,8 +53,8 @@ public class Main
 		finally{
 			System.out.println("Matrice m3\n"+m3);
 		}
-		//Pour le equals les test on été fait si la matrice est cloner et si on change les dimension mais pas les valeurs également. Donc une matrice est éagale à une autre si et seulement si elle 
-		//ont les mêmes dimensions et les mêmes valeurs au même position.
+		//Pour le equals les test on Ã©tÃ© fait si la matrice est cloner et si on change les dimension mais pas les valeurs Ã©galement. Donc une matrice est Ã©agale Ã  une autre si et seulement si elle 
+		//ont les mÃªmes dimensions et les mÃªmes valeurs au mÃªme position.
 		System.out.println("Matrice m equals Matrice m3 is "+m.equals(m3));
 		Matrice m4=null;
 		try{
@@ -64,7 +64,7 @@ public class Main
 			m4.setVariable(1, 0, -1.);
 			m4.setVariable(1, 1, -1.);
 			m3=m3.sommeMatrice(m4);
-			//la somme avec une matrice null donne la matrice, la somme avec des valeur postives ou négative modifie la valeur qui se trouve à la même postion dans la matrice résultat.
+			//la somme avec une matrice null donne la matrice, la somme avec des valeur postives ou nÃ©gative modifie la valeur qui se trouve Ã  la mÃªme postion dans la matrice rÃ©sultat.
 		}
 		catch(NegatifNumberException e){
 			System.err.println(e.getMessage());
@@ -104,7 +104,7 @@ public class Main
 			System.err.println(e.getMessage());
 		}
 		finally{
-			System.out.println("Matrice identité\n"+identite);
+			System.out.println("Matrice identitÃ©\n"+identite);
 		}	
 		
 		Matrice mEtIdent = null;
@@ -123,7 +123,7 @@ public class Main
 		}
 		finally
 		{
-			System.out.println("Matrice m multipliée par la matrice identité\n" + mEtIdent);
+			System.out.println("Matrice m multipliÃ©e par la matrice identitÃ©\n" + mEtIdent);
 		}
 		
 		Matrice mike = null;;
@@ -188,12 +188,12 @@ public class Main
 		}
 		finally
 		{
-			System.out.println("Matrice Mikes multipliées\n" + mikeMult);
+			System.out.println("Matrice Mikes multipliÃ©es\n" + mikeMult);
 		}
 		*/
 		
 		
-		// Étape 1: Encoder les données
+		// Ã‰tape 1: Encoder les donnÃ©es
 		
 		Simplexe m = null;
 		Scanner scan = new Scanner(System.in);
@@ -214,10 +214,10 @@ public class Main
 		System.out.println(m.toString());
 		for(int i=0;i<nbContraintes;i++){
 			int j=i+1;
-			System.out.println("Contrainte n°"+j);
+			System.out.println("Contrainte nÂ°"+j);
 			for(int v=0;v<nbVariables;v++){
 				int w=v+1;
-				System.out.println("Valeur de la variable n°"+w);
+				System.out.println("Valeur de la variable nÂ°"+w);
 				valeur=scan.nextDouble();
 				try {
 					m.setVariable(i, v, valeur);
@@ -258,10 +258,6 @@ public class Main
 			}
 		}
 		System.out.println(m.toString());
-		m.calcul();		
-		System.out.println(m.toString());
-		m.calcul();		
-		System.out.println(m.toString());	
 		m.calcul();		
 		System.out.println(m.toString());	
 	}
