@@ -17,7 +17,7 @@ public class Matrice{
 	 * 
 	 * @param nbContrainte Le nombre de contraintes
 	 * @param nbVariable Le nombre de variables
-	 * @throws NumberUnderLimitException Le nombre de variable ou le nombre de contrainte est négatif
+	 * @throws NumberUnderLimitException Le nombre de variable ou le nombre de contrainte est nÃ©gatif
 	 */
 	public Matrice(int nbContrainte, int nbVariable)throws NumberUnderLimitException
 	{
@@ -30,13 +30,13 @@ public class Matrice{
 	}
 	
 	/**
-	 * Cette méthode permet de remplir une case de la matrice avec une valeur de type double
+	 * Cette mÃ©thode permet de remplir une case de la matrice avec une valeur de type double
 	 * 
-	 * @param x Le numéro de la colonne
-	 * @param y Le numéro de la ligne
+	 * @param x Le numÃ©ro de la colonne
+	 * @param y Le numÃ©ro de la ligne
 	 * @param contenu La valeur de la case
-	 * @throws NegatifNumberException Valeur de la colonne / ligne négative
-	 * @throws NumberUnderLimitException Dépassement de capacité de la valeur de la colonne / ligne
+	 * @throws NegatifNumberException Valeur de la colonne / ligne nÃ©gative
+	 * @throws NumberUnderLimitException DÃ©passement de capacitÃ© de la valeur de la colonne / ligne
 	 */
 	public void setVariable(int x, int y, double contenu)throws NegatifNumberException, NumberUnderLimitException{
 		if(x >= 0 && x <= this.matrice.length){
@@ -60,9 +60,9 @@ public class Matrice{
 	
 
 	/**
-	 * Test l'égalité entre deux matrices en se basant sur leur contenu
+	 * Test l'Ã©galitÃ© entre deux matrices en se basant sur leur contenu
 	 * 
-	 * @return True si elles sont égales, false sinon.
+	 * @return True si elles sont Ã©gales, false sinon.
 	 */
 	public boolean equals(Object o){
 		if(o instanceof Matrice){
@@ -81,7 +81,7 @@ public class Matrice{
 	
 	
 	/**
-	 * Renvoie le contenu de la matrice sous forme d'une chaine de caractères
+	 * Renvoie le contenu de la matrice sous forme d'une chaine de caractÃ¨res
 	 * 
 	 * @return Le contenu de la matrice
 	 */
@@ -98,9 +98,9 @@ public class Matrice{
 	
 	/**
 	 * 
-	 * @param m Matrice à additionner
-	 * @return Une matrice réponse si pas d'erreur, sinon null
-	 * @throws ObjectNullException L'objet passé en paramètre est null
+	 * @param m Matrice Ã  additionner
+	 * @return Une matrice rÃ©ponse si pas d'erreur, sinon null
+	 * @throws ObjectNullException L'objet passÃ© en paramÃ¨tre est null
 	 */
 	public Matrice sommeMatrice(Matrice m)throws ObjectNullException
 	{
@@ -124,7 +124,7 @@ public class Matrice{
 					
 				} catch (NumberUnderLimitException e)
 				{
-					e.printStackTrace(); // Éviter de gerer les exceptions dans une méthode comme celle ci, autant faire un throw - Mike
+					e.printStackTrace(); // Ã‰viter de gerer les exceptions dans une mÃ©thode comme celle ci, autant faire un throw - Mike
 				}
 				
 				for(int x = 0; x < this.matrice.length; x++)
@@ -146,7 +146,7 @@ public class Matrice{
 	
 	/**
 	 * Transpose la matrice
-	 * @return Une matrice transposée de celle sur laquelle on applique la méthode
+	 * @return Une matrice transposÃ©e de celle sur laquelle on applique la mÃ©thode
 	 * @throws ObjectNullException La matrice est nulle
 	 */
 	public Matrice transposition()throws ObjectNullException
@@ -236,19 +236,34 @@ public class Matrice{
 			throw new ObjectNullException();
 		}
 	}
-	
+	/**
+	 * 
+	 * @return le nombre de ligne de la matrice
+	 */
 	public int getNumberLigne(){
 		return this.matrice.length;
 	}
-	
+	/**
+	 * 
+	 * @return le nombre de colonne de la matrice
+	 */
 	public int getNumberColonne(){
 		return this.matrice[0].length;
 	}
-	
+	/**
+	 * @return null
+	 */
 	public Matrice clone(){
 		return null; // Pour eviter erreurs 
 	}
-
+	/**
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @return la valeur de la matrice dont la position est ligne , colonne
+	 * @throws NegatifNumberException
+	 * @throws NumberUnderLimitException
+	 */
 	public double getVariable(int ligne,int colonne)throws NegatifNumberException,NumberUnderLimitException{
 		if(ligne <0 || colonne<0){
 			throw new NegatifNumberException();
