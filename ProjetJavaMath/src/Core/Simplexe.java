@@ -8,6 +8,13 @@ import Erreur.NumberUnderLimitException;
 public class Simplexe implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Matrice matrice;
+	/**
+	 * Constructeur de la classe Simplexe
+	 * 
+	 * @param nbContrainte
+	 * @param nbVariable
+	 * @throws NumberUnderLimitException
+	 */
 	public Simplexe(int nbContrainte,int nbVariable)throws NumberUnderLimitException{
 		
 		int nbLigne = nbContrainte+1;
@@ -31,6 +38,9 @@ public class Simplexe implements Serializable{
 
 		
 	}
+	/**
+	 * @return la matrice
+	 */
 	public String toString(){
 		return this.matrice.toString();
 	}
@@ -43,7 +53,7 @@ public class Simplexe implements Serializable{
 		
 		if(colonne < 0)
 		{
-			System.out.println("Plus d'itt�rations possible");
+			System.out.println("Plus d'ittérations possible");
 			return;
 		}
 		
@@ -99,7 +109,7 @@ public class Simplexe implements Serializable{
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Avant de faire apparaitre les z�ro: \n" + this.matrice.toString());
+		System.out.println("Avant de faire apparaitre les zéro: \n" + this.matrice.toString());
 		// A partir d'ici, il faut siplement faire apparaitre des 0 dans les autres lignes du pivot
 		pivot /= pivot;
 		for(int i = 0; i <= this.matrice.getNumberLigne() - 1; i++)
@@ -136,7 +146,15 @@ public class Simplexe implements Serializable{
 		}
 	//	this.calcul();
 	}
-
+	/**
+	 * les paramètres ligne et colonne permette de localiser où se trouve la valeur à modifier qui sera remplacer par le paramètre valeur.
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @param valeur
+	 * @throws NegatifNumberException
+	 * @throws NumberUnderLimitException
+	 */
 	public void setVariable(int ligne,int colonne,double valeur)throws NegatifNumberException,NumberUnderLimitException{
 		if(ligne <0 || colonne <0){
 			throw new NegatifNumberException();
@@ -146,7 +164,11 @@ public class Simplexe implements Serializable{
 		}
 		this.matrice.setVariable(ligne, colonne, valeur);
 	}
-	
+	/**
+	 * Vérifie qu'il y une valeur positif dans la dernière ligne du simplexe
+	 * 
+	 * @return i
+	 */
 	
 	public int verifierLigne()
 	{
