@@ -86,10 +86,12 @@ public class Matrice{
 	 * @return Le contenu de la matrice
 	 */
 	public String toString(){
+		DecimalFormat df = new DecimalFormat("0.00");
+		
 		String str="";
 		for(int x=0;x<matrice.length;x++){
 			for(int y=0;y<matrice[x].length;y++){
-				str+=matrice[x][y]+"|";
+				str+=df.format(matrice[x][y])+"|";
 			}
 			str+="\n";
 		}
