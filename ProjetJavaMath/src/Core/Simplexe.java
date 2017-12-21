@@ -12,6 +12,12 @@ public class Simplexe implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Matrice matrice;
 	private int nbIte;
+	/**
+	 * Ceci est le constructeur de la classe Simplexe, permettant de créer des objets Simplexe
+	 * @param nbContrainte Nombre de contraintes dans l'énoncé
+	 * @param nbVariable Nombre de variable par contraintes
+	 * @throws NumberUnderLimitException Exception qui gère les nombre qui dépasse les limites fixées
+	 */
 	public Simplexe(int nbContrainte,int nbVariable)throws NumberUnderLimitException{
 		
 		int nbLigne = nbContrainte+1;
@@ -36,12 +42,19 @@ public class Simplexe implements Serializable{
 
 		
 	}
+	/**
+	 * Retourne la matrice du Simplexe sous forme de chaîne de caractère mise en forme.
+	 */
 	public String toString(){
 		return this.matrice.toString();
 	}
+	
+	/**
+	 * Cette méthode permet de faire autant d'itération que necessaire. Elle affiche aussi les matrices intermédiaires et les solutions de bases.
+	 */
 	public void calcul(){
 		/*
-		 * verif il y a au moins un nombre positif dans la derniere ligne or derniere colonne
+		 * Verifie il y a au moins un nombre positif dans la derniere ligne or derniere colonne
 		 * si faux on sort de la methode
 		 */
 		int colonne = verifierLigne();
@@ -133,7 +146,7 @@ public class Simplexe implements Serializable{
 			
 			}
 		}
-		
+		// Affichages
 		System.out.println("Itération n°: " + nbIte + "\n");
 		nbIte++;
 		System.out.println(this.matrice.toString());
@@ -142,6 +155,14 @@ public class Simplexe implements Serializable{
 		this.calcul();
 	}
 
+	/**
+	 * Cette méthode permet de placer une variable à une position bien précise de la matrice du Simplexe.
+	 * @param ligne Ligne de la variable
+	 * @param colonne Colonne de la variable
+	 * @param valeur Valeur de la variable
+	 * @throws NegatifNumberException Position négative dans la matrice
+	 * @throws NumberUnderLimitException Position qui dépasse les limites de la matrice
+	 */
 	public void setVariable(int ligne,int colonne,double valeur)throws NegatifNumberException,NumberUnderLimitException{
 		if(ligne <0 || colonne <0){
 			throw new NegatifNumberException();
@@ -153,6 +174,10 @@ public class Simplexe implements Serializable{
 	}
 	
 
+	/**
+	 * Cette méthode permet de calculer la solution de base de la matrice du Simplexe
+	 * @return Une liste contenant les valeurs de la solution de base
+	 */
 	public List<String> donnerSolutionBase(){
 		List<String> sb = new ArrayList<>();
  		for(int j = 0 ; j < this.matrice.getNumberColonne() - 1; j++){
@@ -204,7 +229,11 @@ public class Simplexe implements Serializable{
 		return sb;
 	}
 	
-	
+	/**
+	 * Cette méthode permet de vérifier si il reste des chiffres positifs non nuls dans la dernière ligne de la matrice du Simplexe,
+	 * et retourne la colonne de la plus grande valeur si il reste un positif, sinon -1. 
+	 * @return La colonne de la plus grande valeur si il reste un positif, sinon -1
+	 */
 	public int verifierLigne()
 	{
 		int col = -1;
@@ -222,9 +251,14 @@ public class Simplexe implements Serializable{
 			}
 		}
 		return col;
-		
 	}
 	
+	/**
+	 * Récupère la valeur d'une variable en fonction de sa ligne et sa colonne dans la matrice du Simplexe
+	 * @param ligne Ligne de la variable
+	 * @param colonne Colonne de la variable
+	 * @return La valeur de la variable
+	 */
 	public double getVariable(int ligne, int colonne)
 	{
 		try {
@@ -240,6 +274,10 @@ public class Simplexe implements Serializable{
 		return 0;
 	}
 	
+	/**
+	 * Cette méthode sert à récuperer Z dans la matrice du Simplexe.
+	 * @return Z
+	 */
 	public double donnerZ()
 	{
 		try {

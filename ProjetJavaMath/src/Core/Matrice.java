@@ -239,18 +239,31 @@ public class Matrice{
 		}
 	}
 	
+	/**
+	 * Retourne le nombre de ligne de la matrice
+	 * @return Le nombre de ligne de la matrice
+	 */
 	public int getNumberLigne(){
 		return this.matrice.length;
 	}
 	
+	/**
+	 * Retourne le nombre de colonne de la matrice
+	 * @return Le nombre de colonne de la matrice
+	 */
 	public int getNumberColonne(){
 		return this.matrice[0].length;
 	}
 	
-	public Matrice clone(){
-		return null; // Pour eviter erreurs 
-	}
 
+	/**
+	 * Récupère la valeur d'une variable en fonction de sa ligne et sa colonne dans la matrice du Simplexe
+	 * @param ligne Ligne de la variable
+	 * @param colonne Colonne de la variable
+	 * @return La valeur de la variable
+	 * @throws NegatifNumberException Valeur négative dans ligne ou colonne
+	 * @throws NumberUnderLimitException Valeur de ligne ou colonne dépassant les limites de la matrice
+	 */
 	public double getVariable(int ligne,int colonne)throws NegatifNumberException,NumberUnderLimitException{
 		if(ligne <0 || colonne<0){
 			throw new NegatifNumberException();

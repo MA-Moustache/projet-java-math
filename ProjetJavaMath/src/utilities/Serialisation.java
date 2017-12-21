@@ -12,7 +12,11 @@ import Core.Simplexe;
 
 
 public class Serialisation {
-	
+	/**
+	 * Cette méthode permet de créer un ficher reprennant la matrice finale et ses solutions
+	 * @param s La chaine de caractère a écrire dans le fichier
+	 * @param fileName Le nom du fichier
+	 */
 	public static void ecrireFichierTexte(String s, String fileName){
 		try(PrintWriter print = new PrintWriter(fileName + ".txt")){
 			print.println(s);

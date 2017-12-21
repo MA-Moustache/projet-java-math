@@ -89,13 +89,17 @@ public class Main
 		System.out.println("|      SOLUTION      |");
 		System.out.println("======================");
 		
+		String str = "";
+		
 		for(int i = 0; i < nbVariables; i++)
 		{
+			str += "x" + i + "*: " + m.donnerSolutionBase().get(i) + "\n";
 			System.out.println("x" + i + "*: " + m.donnerSolutionBase().get(i));
 		}
 		System.out.println("Z*: " + m.donnerZ() );
+		str += "Z*: " + m.donnerZ() + "\n";
 		
-		Serialisation.ecrireFichierTexte(m.toString(), "Solution");
+		Serialisation.ecrireFichierTexte(m.toString() + "\n" + str , "Solution");
 		
 	}
 
