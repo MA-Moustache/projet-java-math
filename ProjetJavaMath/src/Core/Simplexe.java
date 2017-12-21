@@ -57,7 +57,7 @@ public class Simplexe implements Serializable{
 		
 		for(int i = 0; i <= this.matrice.getNumberLigne() - 2; i++){
 			try {
-				if(this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne) < valLigne){
+				if(this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne) < valLigne && (this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne) >= 0) ){
 					valLigne = this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne);
 					System.out.println("Je passe dans la condition, et ValLigne = " + valLigne);
 					ligne = i;
@@ -134,7 +134,7 @@ public class Simplexe implements Serializable{
 			
 			}
 		}
-	//	this.calcul();
+		this.calcul();
 	}
 
 	public void setVariable(int ligne,int colonne,double valeur)throws NegatifNumberException,NumberUnderLimitException{
