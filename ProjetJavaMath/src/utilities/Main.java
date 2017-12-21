@@ -48,7 +48,7 @@ public class Main
 					e.printStackTrace();
 				}
 			}
-			System.out.println("Therme independant: ");
+			System.out.println("Terme independant: ");
 			valeur=scan.nextDouble();
 			try {
 				m.setVariable(i, nbContraintes+nbVariables, valeur);
@@ -60,7 +60,7 @@ public class Main
 				e.printStackTrace();
 			}
 		}
-		System.out.println(m.toString());
+		
 		//fonction recherche
 		System.out.println("Fonction objective");
 		for(int i=0;i<nbVariables;i++){
@@ -76,8 +76,13 @@ public class Main
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("\n\n\nMatrice de départ\n--------------\n\n");
 		System.out.println(m.toString());
+		
 		m.calcul();
+		
+		System.out.println("Matrice finale:\n-------------\n");
 		System.out.println(m.toString());
 		
 		Serialisation.ecrireFichierTexte(m.toString(), "Solution");

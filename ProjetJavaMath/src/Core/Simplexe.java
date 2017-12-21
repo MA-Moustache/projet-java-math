@@ -1,6 +1,9 @@
 package Core;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import Erreur.NegatifNumberException;
 import Erreur.NumberUnderLimitException;
@@ -8,10 +11,12 @@ import Erreur.NumberUnderLimitException;
 public class Simplexe implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Matrice matrice;
+	private int nbIte;
 	public Simplexe(int nbContrainte,int nbVariable)throws NumberUnderLimitException{
 		
 		int nbLigne = nbContrainte+1;
 		int nbColonne=nbContrainte+nbVariable+1;
+		nbIte = 1;
 		
 		try {
 			this.matrice=new Matrice(nbLigne,nbColonne);
@@ -47,7 +52,6 @@ public class Simplexe implements Serializable{
 			return;
 		}
 		
-		System.out.println("Colonne du pivot: " + colonne);
 		/*
 		 * recherche de la colonne du pivot
 		 * celle ci est le plus grand nombre sur la derniere ligne sauf derniere colonne
@@ -59,7 +63,6 @@ public class Simplexe implements Serializable{
 			try {
 				if(this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne) < valLigne && (this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne) >= 0) ){
 					valLigne = this.matrice.getVariable(i, this.matrice.getNumberColonne()-1) / this.matrice.getVariable(i, colonne);
-					System.out.println("Je passe dans la condition, et ValLigne = " + valLigne);
 					ligne = i;
 				}
 			} catch (NegatifNumberException e) {
@@ -70,7 +73,6 @@ public class Simplexe implements Serializable{
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Ligne du pivot: " + ligne);
 		/*
 		 * rendre la ligne du pivot unitaire
 		 */
@@ -85,10 +87,8 @@ public class Simplexe implements Serializable{
 			e1.printStackTrace();
 		}
 		
-		System.out.println(pivot);
 		for(int i=0;i <= this.matrice.getNumberColonne()-1;i++){
 			try {
-				System.out.println("Ligne: " + ligne + " Colonne: " + i);
 				
 				this.matrice.setVariable(ligne, i, this.matrice.getVariable(ligne, i) / pivot);
 			} catch (NegatifNumberException e) {
@@ -99,7 +99,6 @@ public class Simplexe implements Serializable{
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Avant de faire apparaitre les zéro: \n" + this.matrice.toString());
 		// A partir d'ici, il faut siplement faire apparaitre des 0 dans les autres lignes du pivot
 		pivot /= pivot;
 		for(int i = 0; i <= this.matrice.getNumberLigne() - 1; i++)
@@ -134,6 +133,20 @@ public class Simplexe implements Serializable{
 			
 			}
 		}
+		
+		System.out.println("Itération n°: " + nbIte + "\n");
+		nbIte++;
+		System.out.println(this.matrice.toString());
+		System.out.println("Solution de base:");
+		try {
+			System.out.println(donnerSolutionBase().toString() + " Z = " + Math.abs(matrice.getVariable(matrice.getNumberLigne()-1, matrice.getNumberColonne()-1)) + "\n");
+		} catch (NegatifNumberException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberUnderLimitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.calcul();
 	}
 
@@ -145,6 +158,58 @@ public class Simplexe implements Serializable{
 			throw new NumberUnderLimitException();
 		}
 		this.matrice.setVariable(ligne, colonne, valeur);
+	}
+	
+
+	public List<String> donnerSolutionBase(){
+		List<String> sb = new ArrayList<>();
+ 		for(int j = 0 ; j < this.matrice.getNumberColonne() - 1; j++){
+			int nbZero = 0;
+			int nbUn = 0;
+			int indLigne = 0;
+			for(int i = 0 ; i < matrice.getNumberLigne(); i++){
+				try {
+					if(matrice.getVariable(i, j) == 1){
+						nbUn++;
+						indLigne = i;
+					} else
+						try {
+							if(matrice.getVariable(i, j) == 0){
+								nbZero++;
+							}
+						} catch (NegatifNumberException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (NumberUnderLimitException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				} catch (NegatifNumberException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NumberUnderLimitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			DecimalFormat df = new DecimalFormat("0.00");
+			String adding;
+			if(nbUn == 1 && nbZero == matrice.getNumberLigne()-1){
+				try {
+					adding = df.format(matrice.getVariable(indLigne, matrice.getNumberColonne()-1));
+					sb.add(adding);
+				} catch (NegatifNumberException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NumberUnderLimitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else{
+				sb.add("0");
+			}
+		}
+		return sb;
 	}
 	
 	
