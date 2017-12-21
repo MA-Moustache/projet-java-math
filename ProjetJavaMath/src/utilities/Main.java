@@ -85,6 +85,16 @@ public class Main
 		System.out.println("Matrice finale:\n-------------\n");
 		System.out.println(m.toString());
 		
+		System.out.println("======================");
+		System.out.println("|      SOLUTION      |");
+		System.out.println("======================");
+		
+		for(int i = 0; i < nbVariables; i++)
+		{
+			System.out.println("x" + i + "*: " + m.donnerSolutionBase().get(i));
+		}
+		System.out.println("Z*: " + m.donnerZ() );
+		
 		Serialisation.ecrireFichierTexte(m.toString(), "Solution");
 		
 	}

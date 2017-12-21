@@ -138,15 +138,7 @@ public class Simplexe implements Serializable{
 		nbIte++;
 		System.out.println(this.matrice.toString());
 		System.out.println("Solution de base:");
-		try {
-			System.out.println(donnerSolutionBase().toString() + " Z = " + Math.abs(matrice.getVariable(matrice.getNumberLigne()-1, matrice.getNumberColonne()-1)) + "\n");
-		} catch (NegatifNumberException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NumberUnderLimitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println(donnerSolutionBase().toString() + " Z = " + donnerZ() + "\n");
 		this.calcul();
 	}
 
@@ -231,5 +223,34 @@ public class Simplexe implements Serializable{
 		}
 		return col;
 		
+	}
+	
+	public double getVariable(int ligne, int colonne)
+	{
+		try {
+			return this.matrice.getVariable(ligne, colonne);
+		} catch (NegatifNumberException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberUnderLimitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public double donnerZ()
+	{
+		try {
+			return Math.abs(matrice.getVariable(matrice.getNumberLigne()-1, matrice.getNumberColonne()-1));
+		} catch (NegatifNumberException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberUnderLimitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
